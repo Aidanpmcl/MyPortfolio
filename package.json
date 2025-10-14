@@ -1,0 +1,27 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Aidan McLaughlin's Portfolio Website",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run tailwind:watch\" \"nodemon server.js\"",
+    "start": "node server.js",
+    "tailwind:watch": "npx tailwindcss -i ./src/input.css -o ./public/css/output.css --watch",
+    "tailwind:build": "npx tailwindcss -i ./src/input.css -o ./public/css/output.css --minify",
+    "build": "npm run tailwind:build && node build.js",
+    "prebuild": "echo Building static site for GitHub Pages..."
+  },
+  "keywords": ["portfolio", "handlebars", "tailwind"],
+  "author": "Aidan McLaughlin",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2"
+  }
+}
+
