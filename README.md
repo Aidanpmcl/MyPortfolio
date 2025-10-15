@@ -1,3 +1,13 @@
+to run right click on index.html and click open with live server
+
+to push to github
+git add .
+git commit -a -m "your message about changes"
+git push
+
+
+
+
 # Aidan McLaughlin's Portfolio Website
 
 A modern portfolio website built with Node.js, Express, Handlebars templating, and Tailwind CSS.
