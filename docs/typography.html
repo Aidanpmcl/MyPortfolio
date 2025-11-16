@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography | Aidan McLaughlin</title>
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">Aidan McLaughlin</h1>
+        <nav class="flex gap-6">
+          <a href="index.html" class="text-gray-700 hover:text-blue-600 font-semibold transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-100 ">Home</a>
+          <a href="about.html" class="text-gray-700 hover:text-blue-600 font-semibold transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-100 ">About</a>
+          <a href="projects.html" class="text-gray-700 hover:text-blue-600 font-semibold transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-100 bg-blue-100 text-blue-600">Projects</a>
+          <a href="contact.html" class="text-gray-700 hover:text-blue-600 font-semibold transition duration-200 px-3 py-2 rounded-lg hover:bg-gray-100 ">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow container mx-auto px-6 py-12">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Typography — Type specimens & poster work</h2>
+
+      <p class="text-gray-600 mb-6 text-center">Click a file to preview it in the viewer. Use the download button to save the PDF.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Item 1 -->
+        <button data-pdf="pdfs/Project 2.pdf" data-title="Project 2" class="open-pdf group bg-white rounded-lg shadow hover:shadow-xl transition p-4 flex flex-col items-center gap-4 relative">
+          <div class="w-full h-80 bg-red-100 rounded overflow-hidden relative">
+            <iframe class="preview w-full h-full border-0" data-src="pdfs/Project 2.pdf" title="Project 2 preview"></iframe>
+            <a class="preview-overlay absolute inset-0 z-10" href="pdfs/Project 2.pdf" target="_blank" rel="noopener" aria-label="Open Project 2 PDF"></a>
+          </div>
+          <div class="w-full text-left">
+            <h3 class="text-lg font-semibold">Project 1</h3>
+            <p class="text-sm text-gray-500">Mailable Poster</p>
+          </div>
+        </button>
+
+        <!-- Item 2 -->
+        <button data-pdf="pdfs/Type Specimen Poster.pdf" data-title="Type Specimen Poster" class="open-pdf group bg-white rounded-lg shadow hover:shadow-xl transition p-4 flex flex-col items-center gap-4 relative">
+          <div class="w-full h-80 bg-yellow-100 rounded overflow-hidden relative">
+            <iframe class="preview w-full h-full border-0" data-src="pdfs/Type Specimen Poster.pdf" title="Type Specimen Poster preview"></iframe>
+            <a class="preview-overlay absolute inset-0 z-10" href="pdfs/Type Specimen Poster.pdf" target="_blank" rel="noopener" aria-label="Open Type Specimen Poster PDF"></a>
+          </div>
+          <div class="w-full text-left">
+            <h3 class="text-lg font-semibold">Project 2</h3>
+            <p class="text-sm text-gray-500">Type Specimen Poster</p>
+          </div>
+        </button>
+
+        <!-- Item 3 -->
+        <button data-pdf="pdfs/PROJ3 Text-2.pdf" data-title="PROJ3 Text" class="open-pdf group bg-white rounded-lg shadow hover:shadow-xl transition p-4 flex flex-col items-center gap-4 relative">
+          <div class="w-full h-80 bg-green-100 rounded overflow-hidden relative">
+            <iframe class="preview w-full h-full border-0" data-src="pdfs/PROJ3 Text-2.pdf" title="PROJ3 Text preview"></iframe>
+            <a class="preview-overlay absolute inset-0 z-10" href="pdfs/PROJ3 Text-2.pdf" target="_blank" rel="noopener" aria-label="Open PROJ3 Text PDF"></a>
+          </div>
+          <div class="w-full text-left">
+            <h3 class="text-lg font-semibold">Final</h3>
+            <p class="text-sm text-gray-500">Aidan Brewing</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- modal removed: previews inline and links open PDFs in a new tab -->
+
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-6 mt-auto">
+    <div class="container mx-auto px-6 text-center">
+      <p>&copy; 2025 Aidan McLaughlin</p>
+    </div>
+  </footer>
+
+  <script>
+    // Enable small preview iframes to be scrollable on hover.
+    // CSS is injected here to keep this page self-contained.
+    const style = document.createElement('style');
+    style.innerHTML = `
+      /* Disable pointer events on previews by default so the overlay link receives clicks */
+      .preview { pointer-events: none; }
+      /* When hovering the card, enable pointer events so user can scroll/zoom the pdf inside the iframe */
+      .open-pdf:hover .preview { pointer-events: auto; }
+      /* Overlay captures clicks by default, but is disabled on hover so iframe can be interacted with */
+      .preview-overlay { pointer-events: auto; }
+      .open-pdf:hover .preview-overlay { pointer-events: none; }
+      /* Make sure previews are visible and maintain aspect */
+      .open-pdf .preview { width: 100%; height: 100%; }
+      .preview-overlay { background: transparent; }
+    `;
+    document.head.appendChild(style);
+
+    document.querySelectorAll('.open-pdf').forEach(btn => {
+      // set preview src immediately so the PDF shows before hover
+      const preview = btn.querySelector('.preview');
+      if (preview) {
+        const src = btn.getAttribute('data-pdf') || preview.getAttribute('data-src');
+        if (src) preview.src = encodeURI(src);
+      }
+
+      // click opens the PDF in a new tab
+      btn.addEventListener('click', (e) => {
+        const pdf = btn.getAttribute('data-pdf');
+        if (pdf) window.open(encodeURI(pdf), '_blank');
+      });
+    });
+
+    // overlays are normal anchors now — they open PDFs in a new tab by default
+  </script>
+</body>
+</html>
